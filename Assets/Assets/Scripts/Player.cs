@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
   public GameObject bullet;
     public GameObject player;
     public Game reference;
-    public ParticleSystem blast;
+    public Animator blast;
     public ParticleSystem dead;
 
   public Transform shottingOffset;
@@ -18,13 +18,14 @@ public class Player : MonoBehaviour
       {
         GameObject shot = Instantiate(bullet, shottingOffset.position, Quaternion.identity);
             //Debug.Log("Bang!");
-            blast.Play();
+            GetComponent<ParticleSystem>().Play();
+            reference.Fire.Play();
 
-        Destroy(shot, 6f);
+            Destroy(shot, 6f);
 
       }
-
-      if (Input.GetKey(KeyCode.A))
+      
+        if (Input.GetKey(KeyCode.A))
         {
             player.transform.Translate(-.05f, 0, 0);
         }

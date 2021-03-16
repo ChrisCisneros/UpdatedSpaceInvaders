@@ -40,6 +40,10 @@ public class Bullet : MonoBehaviour
 
 
         }
+        if (collision.tag == "Small" || collision.tag == "Medium" || collision.tag == "Large")
+        {
+            GetComponent<ParticleSystem>().Play();
+        }
         
     }
 

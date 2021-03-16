@@ -5,9 +5,14 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    public float moveTimer = 3f;
-    public float baseTime = 3f;
-    public float secret = 10f;
+    public AudioSource Fire;
+    public AudioSource Hit;
+    public AudioSource GameOver;
+    public AudioSource GameWin;
+
+     float moveTimer = 3f;
+     float baseTime = 3f;
+     float secret = 10f;
     bool moveActive;
 
     bool secretActive = true;
@@ -17,6 +22,7 @@ public class Game : MonoBehaviour
     public GameObject game;
     public GameObject enemies;
     public GameObject ship;
+    public GameObject aliens;
 
     int score = 100000000;
     int highscore = 100000000;
@@ -29,11 +35,13 @@ public class Game : MonoBehaviour
     int alive = 48;
     int sets = 0;
 
+   
+
     public float shipTimer = .2f;
 
     //to track enemies movement
-    public int movement = 0;
-    public int position = 1;
+     int movement = 0;
+     int position = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +51,7 @@ public class Game : MonoBehaviour
         gameScreen.SetActive(false);
         win.enabled = false;
         lose.enabled = false;
-        
+        aliens.SetActive(true);
     }
 
     // Update is called once per frame
@@ -128,6 +136,7 @@ public class Game : MonoBehaviour
         gameScreen.SetActive(true);
         game.SetActive(true);
         moveActive = true;
+        aliens.SetActive(false);
     }
     public void updateScore(string enemy)
     {
@@ -160,6 +169,7 @@ public class Game : MonoBehaviour
         }
         else if (alive == 0)
         {
+            GameWin.Play();
             game.SetActive(false);
             win.enabled = true;
             stop = true;
@@ -178,6 +188,7 @@ public class Game : MonoBehaviour
 
     public void gameOver()
     {
+        GameOver.Play();
         stop = true;
         game.SetActive(false);
         
