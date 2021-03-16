@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public Game reference;
     ParticleSystem blast;
 
+    float Killtimer = -1f;
+
     public float timer;
 
     private void Start()
@@ -31,6 +33,16 @@ public class Enemy : MonoBehaviour
                 fire();
         }
 
+        if(Killtimer > 0)
+        {
+            Killtimer -= Time.deltaTime;
+        }
+
+        if (Killtimer < 0 && Killtimer != -1)
+        {
+            Destroy(gameObject);
+        }
+
 
     }
     /*void OnCollisionEnter2D(Collision2D collision)
@@ -51,18 +63,28 @@ public class Enemy : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        bool alien = false;
         
         if (collision.tag == "Bullet")
         {
             blast.Play();
             reference.updateScore(gameObject.tag);
             reference.kill();
+            blast.Play();
+            Killtimer = .5f;
             Destroy(collision.gameObject);
-            Destroy(gameObject);
+            reference.Hit.Play();
         }
-        
+
+        if (alien)
+        {
+            
+            
+        }
+        alien = false;
     }
+
+    
 
     void fire()
     {
